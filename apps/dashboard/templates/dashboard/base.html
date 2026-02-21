@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +12,7 @@
     <link rel="stylesheet" href="{% static 'dashboard/css/style.css' %}">
     {% block extra_css %}{% endblock %}
 </head>
+
 <body>
     <nav class="navbar">
         <div class="navbar__brand">
@@ -18,7 +20,10 @@
             Portfolio App
         </div>
         <ul class="navbar__nav">
-            <li><a href="{% url 'dashboard:index' %}" class="navbar__link {% block nav_dashboard %}{% endblock %}">Dashboard</a></li>
+            <li><a href="{% url 'dashboard:index' %}"
+                    class="navbar__link {% block nav_dashboard %}{% endblock %}">Dashboard</a></li>
+            <li><a href="{% url 'applications:list' %}"
+                    class="navbar__link {% block nav_applications %}{% endblock %}">Applications</a></li>
         </ul>
     </nav>
 
@@ -32,4 +37,5 @@
 
     {% block extra_js %}{% endblock %}
 </body>
+
 </html>

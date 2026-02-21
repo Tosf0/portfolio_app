@@ -1,0 +1,77 @@
+﻿{% extends "dashboard/base.html" %}
+
+{% block nav_applications %}navbar__link--active{% endblock %}
+{% block title %}Applications{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-header__title">Applications</h1>
+    <p class="page-header__subtitle">{{ total_count }} applications found</p>
+</div>
+
+<div class="filters">
+    <form method="get" class="filters__form">
+        <input type="text" name="q" value="{{ current_search }}" placeholder="Search by name..." class="filters__input">
+        <select name="type" class="filters__select">
+            <option value="">All Types</option>
+            <option value="core" {% if current_type == "core" %}selected{% endif %}>Core</option>
+            <option value="satellite" {% if current_type == "satellite" %}selected{% endif %}>Satellite</option>
+        </select>
+        <select name="criticality" class="filters__select">
+            <option value="">All Criticality</option>
+            <option value="mission_critical" {% if current_criticality == "mission_critical" %}selected{% endif %}>Mission Critical</option>
+            <option value="business_critical" {% if current_criticality == "business_critical" %}selected{% endif %}>Business Critical</option>
+            <option value="business_operational" {% if current_criticality == "business_operational" %}selected{% endif %}>Business Operational</option>
+            <option value="administrative" {% if current_criticality == "administrative" %}selected{% endif %}>Administrative</option>
+        </select>
+        <select name="status" class="filters__select">
+            <option value="">All Statuses</option>
+            <option value="production" {% if current_status == "production" %}selected{% endif %}>Production</option>
+            <option value="development" {% if current_status == "development" %}selected{% endif %}>Development</option>
+            <option value="phase_out" {% if current_status == "phase_out" %}selected{% endif %}>Phase Out</option>
+            <option value="decommissioned" {% if current_status == "decommissioned" %}selected{% endif %}>Decommissioned</option>
+        </select>
+        <select name="domain" class="filters__select">
+            <option value="">All Domains</option>
+            {% for d in domains %}
+            <option value="{{ d }}" {% if current_domain == d %}selected{% endif %}>{{ d }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="filters__btn">Filter</button>
+        {% if current_search or current_type or current_criticality or current_status or current_domain %}
+        <a href="{% url 'applications:list' %}" class="filters__clear">Clear</a>
+        {% endif %}
+    </form>
+</div>
+
+<div class="panel">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Domain</th>
+                <th>Criticality</th>
+                <th>Status</th>
+                <th>Tech Stack</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for app in applications %}
+            <tr class="data-table__clickable" onclick="window.location='{% url 'applications:detail' app.pk %}'">
+                <td><code>{{ app.id }}</code></td>
+                <td><strong>{{ app.name }}</strong></td>
+                <td><span class="badge badge--{{ app.type }}">{{ app.get_type_display }}</span></td>
+                <td>{{ app.domain }}</td>
+                <td><span class="badge badge--{{ app.criticality }}">{{ app.get_criticality_display }}</span></td>
+                <td><span class="badge badge--{{ app.lifecycle_status }}">{{ app.get_lifecycle_status_display }}</span></td>
+                <td>{% if app.technology %}{{ app.technology.stack }}{% else %}-{% endif %}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="7" class="data-table__empty">No applications found.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

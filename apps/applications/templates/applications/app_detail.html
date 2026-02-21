@@ -1,0 +1,220 @@
+﻿{% extends "dashboard/base.html" %}
+
+{% block nav_applications %}navbar__link--active{% endblock %}
+{% block title %}{{ app.name }}{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="page-header__breadcrumb">
+        <a href="{% url 'applications:list' %}">Applications</a> &rsaquo; {{ app.name }}
+    </div>
+    <h1 class="page-header__title">{{ app.name }}</h1>
+    <p class="page-header__subtitle">{{ app.id }} &middot; <span class="badge badge--{{ app.type }}">{{ app.get_type_display }}</span> &middot; <span class="badge badge--{{ app.lifecycle_status }}">{{ app.get_lifecycle_status_display }}</span> &middot; <span class="badge badge--{{ app.criticality }}">{{ app.get_criticality_display }}</span></p>
+</div>
+
+{% if app.description %}
+<div class="panel panel--spaced">
+    <p>{{ app.description }}</p>
+</div>
+{% endif %}
+
+<div class="detail-grid">
+    <!-- General Info -->
+    <div class="panel">
+        <div class="panel__header">
+            <h2 class="panel__title">General Information</h2>
+        </div>
+        <dl class="detail-list">
+            <div class="detail-list__row">
+                <dt>Domain</dt>
+                <dd>{{ app.domain }}</dd>
+            </div>
+            <div class="detail-list__row">
+                <dt>Criticality</dt>
+                <dd><span class="badge badge--{{ app.criticality }}">{{ app.get_criticality_display }}</span></dd>
+            </div>
+            <div class="detail-list__row">
+                <dt>Lifecycle Status</dt>
+                <dd><span class="badge badge--{{ app.lifecycle_status }}">{{ app.get_lifecycle_status_display }}</span></dd>
+            </div>
+            {% if app.go_live_date %}
+            <div class="detail-list__row">
+                <dt>Go-Live Date</dt>
+                <dd>{{ app.go_live_date }}</dd>
+            </div>
+            {% endif %}
+            {% if app.planned_decommission_date %}
+            <div class="detail-list__row">
+                <dt>Planned Decommission</dt>
+                <dd>{{ app.planned_decommission_date }}</dd>
+            </div>
+            {% endif %}
+            {% if app.capabilities %}
+            <div class="detail-list__row">
+                <dt>Capabilities</dt>
+                <dd>{% for cap in app.capabilities %}<span class="badge" style="margin-right: 0.25rem; margin-bottom: 0.25rem; background: rgba(0,0,0,0.06);">{{ cap }}</span>{% endfor %}</dd>
+            </div>
+            {% endif %}
+        </dl>
+    </div>
+
+    <!-- Ownership -->
+    {% if app.ownership %}
+    <div class="panel">
+        <div class="panel__header">
+            <h2 class="panel__title">Ownership</h2>
+        </div>
+        <dl class="detail-list">
+            <div class="detail-list__row">
+                <dt>Business Owner</dt>
+                <dd>{{ app.ownership.business_owner }}</dd>
+            </div>
+            <div class="detail-list__row">
+                <dt>Department</dt>
+                <dd>{{ app.ownership.business_owner_department }}</dd>
+            </div>
+            <div class="detail-list__row">
+                <dt>IT Owner</dt>
+                <dd>{{ app.ownership.it_owner }}</dd>
+            </div>
+            <div class="detail-list__row">
+                <dt>IT Team</dt>
+                <dd>{{ app.ownership.it_owner_team }}</dd>
+            </div>
+            {% if app.ownership.vendor %}
+            <div class="detail-list__row">
+                <dt>Vendor</dt>
+                <dd>{{ app.ownership.vendor }}</dd>
+            </div>
+            {% endif %}
+        </dl>
+    </div>
+    {% endif %}
+
+    <!-- Technology -->
+    {% if app.technology %}
+    <div class="panel">
+        <div class="panel__header">
+            <h2 class="panel__title">Technology Stack</h2>
+        </div>
+        <dl class="detail-list">
+            <div class="detail-list__row">
+                <dt>Stack</dt>
+                <dd>{{ app.technology.stack }}</dd>
+            </div>
+            {% if app.technology.database %}
+            <div class="detail-list__row">
+                <dt>Database</dt>
+                <dd>{{ app.technology.database }}</dd>
+            </div>
+            {% endif %}
+            {% if app.technology.runtime %}
+            <div class="detail-list__row">
+                <dt>Runtime</dt>
+                <dd>{{ app.technology.runtime }}</dd>
+            </div>
+            {% endif %}
+            {% if app.technology.vendor_product %}
+            <div class="detail-list__row">
+                <dt>Vendor Product</dt>
+                <dd>{{ app.technology.vendor_product }}</dd>
+            </div>
+            {% endif %}
+        </dl>
+    </div>
+    {% endif %}
+
+    <!-- Tech Debt -->
+    {% if app.tech_debt %}
+    <div class="panel">
+        <div class="panel__header">
+            <h2 class="panel__title">Tech Debt</h2>
+        </div>
+        <div class="tech-debt-detail">
+            {% if app.tech_debt_severity %}
+            <span class="badge badge--td-{{ app.tech_debt_severity }}">{{ app.get_tech_debt_severity_display }}</span>
+            {% endif %}
+            <p class="tech-debt-detail__text">{{ app.tech_debt }}</p>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<!-- Environments -->
+{% if app.environments.all %}
+<div class="panel panel--spaced">
+    <div class="panel__header">
+        <h2 class="panel__title">Environments</h2>
+    </div>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Type</th>
+                <th>Region</th>
+                <th>Hosting</th>
+                <th>Datacenter</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for env in app.environments.all %}
+            <tr>
+                <td><code>{{ env.id }}</code></td>
+                <td><span class="badge">{{ env.get_env_type_display }}</span></td>
+                <td>{{ env.region }}</td>
+                <td>{{ env.get_hosting_display }}</td>
+                <td>{{ env.datacenter|default:"-" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+<!-- Integrations -->
+{% if app.integrations_as_source.all or app.integrations_as_target.all %}
+<div class="panel panel--spaced">
+    <div class="panel__header">
+        <h2 class="panel__title">Integrations</h2>
+    </div>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Direction</th>
+                <th>Source</th>
+                <th>Target</th>
+                <th>Type</th>
+                <th>Protocol</th>
+                <th>Sensitivity</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for intg in app.integrations_as_source.all %}
+            <tr>
+                <td><code>{{ intg.id }}</code></td>
+                <td>{{ intg.get_direction_display }}</td>
+                <td><strong>{{ intg.source_application.name }}</strong></td>
+                <td>{% if intg.target_application %}<a href="{% url 'applications:detail' intg.target_application.pk %}">{{ intg.target_application.name }}</a>{% else %}{{ intg.external_target|default:"External" }}{% endif %}</td>
+                <td>{{ intg.get_integration_type_display }}</td>
+                <td>{{ intg.protocol }}</td>
+                <td><span class="badge">{{ intg.get_data_sensitivity_display }}</span></td>
+            </tr>
+            {% endfor %}
+            {% for intg in app.integrations_as_target.all %}
+            <tr>
+                <td><code>{{ intg.id }}</code></td>
+                <td>{{ intg.get_direction_display }}</td>
+                <td><a href="{% url 'applications:detail' intg.source_application.pk %}">{{ intg.source_application.name }}</a></td>
+                <td><strong>{{ intg.target_application.name }}</strong></td>
+                <td>{{ intg.get_integration_type_display }}</td>
+                <td>{{ intg.protocol }}</td>
+                <td><span class="badge">{{ intg.get_data_sensitivity_display }}</span></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+{% endblock %}
