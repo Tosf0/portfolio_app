@@ -1,0 +1,1977 @@
+{
+    "applications": [
+        {
+            "id": "APP001",
+            "name": "CoreBanking CBS",
+            "type": "core",
+            "domain": "retail_banking",
+            "description": "Hlavní core banking systém pro retailové bankovnictví",
+            "criticality": "mission_critical",
+            "lifecycle_status": "production",
+            "go_live_date": "2018-03-15",
+            "planned_decommission_date": null,
+            "capabilities": [
+                "account_management",
+                "deposit_management",
+                "interest_calculation",
+                "customer_onboarding",
+                "product_catalog",
+                "transaction_processing",
+                "general_ledger_posting"
+            ],
+            "tech_debt": "Aktuální verze R20 je 3 major verze pozadu, končí extended support Q2/2026",
+            "tech_debt_severity": "high"
+        },
+        {
+            "id": "APP002",
+            "name": "PayGate",
+            "type": "core",
+            "domain": "payments",
+            "description": "Platební brána pro zpracování domácích a zahraničních plateb",
+            "criticality": "mission_critical",
+            "lifecycle_status": "production",
+            "go_live_date": "2020-06-01",
+            "planned_decommission_date": null,
+            "capabilities": [
+                "domestic_payments",
+                "international_payments",
+                "sepa_processing",
+                "instant_payments",
+                "payment_scheduling",
+                "payment_status_tracking",
+                "batch_payment_processing"
+            ],
+            "tech_debt": null,
+            "tech_debt_severity": null
+        },
+        {
+            "id": "APP003",
+            "name": "LoanOrigin",
+            "type": "core",
+            "domain": "lending",
+            "description": "Systém pro originaci a správu úvěrů",
+            "criticality": "business_critical",
+            "lifecycle_status": "production",
+            "go_live_date": "2019-11-20",
+            "planned_decommission_date": null,
+            "capabilities": [
+                "loan_origination",
+                "credit_scoring",
+                "loan_approval_workflow",
+                "collateral_management",
+                "loan_disbursement",
+                "repayment_scheduling"
+            ],
+            "tech_debt": "LoanOrigin stále komunikuje přes SOAP, potřeba migrace na REST/gRPC",
+            "tech_debt_severity": "medium"
+        },
+        {
+            "id": "APP004",
+            "name": "FraudShield",
+            "type": "satellite",
+            "domain": "risk_management",
+            "description": "Real-time detekce podvodných transakcí",
+            "criticality": "mission_critical",
+            "lifecycle_status": "production",
+            "go_live_date": "2021-02-10",
+            "planned_decommission_date": null,
+            "capabilities": [
+                "realtime_transaction_screening",
+                "pattern_detection",
+                "aml_monitoring",
+                "case_management",
+                "sar_filing",
+                "ml_model_scoring"
+            ],
+            "tech_debt": null,
+            "tech_debt_severity": null
+        },
+        {
+            "id": "APP005",
+            "name": "ClientHub CRM",
+            "type": "satellite",
+            "domain": "customer_management",
+            "description": "CRM systém pro správu klientských vztahů",
+            "criticality": "business_critical",
+            "lifecycle_status": "production",
+            "go_live_date": "2020-09-01",
+            "planned_decommission_date": null,
+            "capabilities": [
+                "client_360_view",
+                "lead_management",
+                "campaign_management",
+                "next_best_offer",
+                "complaint_management",
+                "relationship_tracking"
+            ],
+            "tech_debt": null,
+            "tech_debt_severity": null
+        },
+        {
+            "id": "APP006",
+            "name": "MobileBanka",
+            "type": "satellite",
+            "domain": "digital_channels",
+            "description": "Mobilní bankovnictví pro iOS a Android",
+            "criticality": "business_critical",
+            "lifecycle_status": "production",
+            "go_live_date": "2022-01-15",
+            "planned_decommission_date": null,
+            "capabilities": [
+                "account_overview",
+                "mobile_payments",
+                "push_notifications",
+                "biometric_authentication",
+                "qr_payments",
+                "personal_finance_management"
+            ],
+            "tech_debt": null,
+            "tech_debt_severity": null
+        },
+        {
+            "id": "APP007",
+            "name": "InternetBanka",
+            "type": "satellite",
+            "domain": "digital_channels",
+            "description": "Internetové bankovnictví – webový portál",
+            "criticality": "business_critical",
+            "lifecycle_status": "production",
+            "go_live_date": "2017-05-10",
+            "planned_decommission_date": null,
+            "capabilities": [
+                "account_overview",
+                "payment_initiation",
+                "standing_orders",
+                "statements_download",
+                "secure_messaging",
+                "settings_management"
+            ],
+            "tech_debt": "Internetová banka běží jako monolit, potřeba rozdělit na microservices",
+            "tech_debt_severity": "medium"
+        },
+        {
+            "id": "APP008",
+            "name": "RegReport",
+            "type": "satellite",
+            "domain": "compliance",
+            "description": "Regulatorní reporting (ČNB, ECB, AML)",
+            "criticality": "business_critical",
+            "lifecycle_status": "production",
+            "go_live_date": "2019-04-01",
+            "planned_decommission_date": null,
+            "capabilities": [
+                "cnb_reporting",
+                "ecb_reporting",
+                "aml_reporting",
+                "corep_finrep",
+                "ad_hoc_regulatory_queries",
+                "audit_trail"
+            ],
+            "tech_debt": "RegReport běží na .NET Framework 4.8 – EOL, nutná migrace na .NET 8",
+            "tech_debt_severity": "high"
+        },
+        {
+            "id": "APP009",
+            "name": "DataWarehouse DWH",
+            "type": "core",
+            "domain": "data_analytics",
+            "description": "Centrální datový sklad pro analytiku a reporting",
+            "criticality": "business_critical",
+            "lifecycle_status": "production",
+            "go_live_date": "2016-08-20",
+            "planned_decommission_date": null,
+            "capabilities": [
+                "data_ingestion",
+                "data_transformation",
+                "business_intelligence",
+                "dashboarding",
+                "ad_hoc_analytics",
+                "data_quality_monitoring"
+            ],
+            "tech_debt": "Teradata licence jsou extrémně drahé, plán migrace na Snowflake/Databricks",
+            "tech_debt_severity": "high"
+        },
+        {
+            "id": "APP010",
+            "name": "LegacyLedger",
+            "type": "core",
+            "domain": "accounting",
+            "description": "Starší účetní systém – plánovaná migrace",
+            "criticality": "business_operational",
+            "lifecycle_status": "phase_out",
+            "go_live_date": "2008-01-10",
+            "planned_decommission_date": "2026-12-31",
+            "capabilities": [
+                "general_ledger",
+                "accounts_payable",
+                "accounts_receivable",
+                "fixed_assets",
+                "cost_center_accounting"
+            ],
+            "tech_debt": "SAP ERP je na staré verzi, migrace na S/4HANA nebo alternativu nutná",
+            "tech_debt_severity": "critical"
+        },
+        {
+            "id": "APP011",
+            "name": "DocVault",
+            "type": "satellite",
+            "domain": "document_management",
+            "description": "Správa a archivace dokumentů, smluv a korespondence",
+            "criticality": "business_operational",
+            "lifecycle_status": "production",
+            "go_live_date": "2019-07-15",
+            "planned_decommission_date": null,
+            "capabilities": [
+                "document_storage",
+                "document_versioning",
+                "full_text_search",
+                "retention_policy_management",
+                "digital_signature_integration"
+            ],
+            "tech_debt": null,
+            "tech_debt_severity": null
+        },
+        {
+            "id": "APP012",
+            "name": "CardManager",
+            "type": "core",
+            "domain": "card_processing",
+            "description": "Správa platebních karet, autorizace a clearing",
+            "criticality": "mission_critical",
+            "lifecycle_status": "production",
+            "go_live_date": "2020-03-01",
+            "planned_decommission_date": null,
+            "capabilities": [
+                "card_issuance",
+                "card_authorization",
+                "card_blocking",
+                "pin_management",
+                "3ds_authentication",
+                "clearing_settlement",
+                "chargeback_management"
+            ],
+            "tech_debt": "Karetní systém stále používá ISO 8583, regulátor tlačí na ISO 20022",
+            "tech_debt_severity": "medium"
+        },
+        {
+            "id": "APP013",
+            "name": "TreasuryDesk",
+            "type": "core",
+            "domain": "treasury",
+            "description": "Správa likvidity, FX operace a řízení aktiv/pasiv",
+            "criticality": "mission_critical",
+            "lifecycle_status": "production",
+            "go_live_date": "2019-05-01",
+            "planned_decommission_date": null,
+            "capabilities": [
+                "liquidity_management",
+                "fx_trading",
+                "alm",
+                "money_market",
+                "interest_rate_risk"
+            ],
+            "tech_debt": "Chybí real-time pozicování, batch výpočty s 2h zpožděním",
+            "tech_debt_severity": "high"
+        },
+        {
+            "id": "APP014",
+            "name": "KYC Portal",
+            "type": "satellite",
+            "domain": "compliance",
+            "description": "Know Your Customer – onboarding, verifikace a screening klientů",
+            "criticality": "business_critical",
+            "lifecycle_status": "production",
+            "go_live_date": "2021-08-15",
+            "planned_decommission_date": null,
+            "capabilities": [
+                "identity_verification",
+                "document_screening",
+                "pep_screening",
+                "sanctions_check",
+                "risk_scoring"
+            ],
+            "tech_debt": null,
+            "tech_debt_severity": null
+        },
+        {
+            "id": "APP015",
+            "name": "CollateralManager",
+            "type": "satellite",
+            "domain": "lending",
+            "description": "Evidence a oceňování zajištění úvěrů (nemovitosti, cenné papíry)",
+            "criticality": "business_critical",
+            "lifecycle_status": "production",
+            "go_live_date": "2020-02-10",
+            "planned_decommission_date": null,
+            "capabilities": [
+                "collateral_registration",
+                "valuation",
+                "lien_management",
+                "collateral_monitoring",
+                "reporting"
+            ],
+            "tech_debt": "Oceňovací modely nemovitostí jsou zastaralé, chybí napojení na katastr",
+            "tech_debt_severity": "medium"
+        },
+        {
+            "id": "APP016",
+            "name": "NotificationHub",
+            "type": "satellite",
+            "domain": "digital_channels",
+            "description": "Centrální systém pro push notifikace, SMS a email komunikaci",
+            "criticality": "business_operational",
+            "lifecycle_status": "production",
+            "go_live_date": "2022-04-01",
+            "planned_decommission_date": null,
+            "capabilities": [
+                "push_notifications",
+                "sms_gateway",
+                "email_delivery",
+                "template_management",
+                "delivery_tracking"
+            ],
+            "tech_debt": null,
+            "tech_debt_severity": null
+        },
+        {
+            "id": "APP017",
+            "name": "BranchTeller",
+            "type": "satellite",
+            "domain": "retail_banking",
+            "description": "Pokladní systém pro pobočkovou síť",
+            "criticality": "business_critical",
+            "lifecycle_status": "production",
+            "go_live_date": "2017-09-01",
+            "planned_decommission_date": null,
+            "capabilities": [
+                "cash_operations",
+                "teller_transactions",
+                "vault_management",
+                "receipt_printing",
+                "atm_reconciliation"
+            ],
+            "tech_debt": "Desktopová WinForms aplikace, nutná migrace na webový klient",
+            "tech_debt_severity": "high"
+        },
+        {
+            "id": "APP018",
+            "name": "RiskEngine",
+            "type": "core",
+            "domain": "risk_management",
+            "description": "Výpočet kapitálových požadavků, kreditního a tržního rizika",
+            "criticality": "mission_critical",
+            "lifecycle_status": "production",
+            "go_live_date": "2018-11-15",
+            "planned_decommission_date": null,
+            "capabilities": [
+                "credit_risk_calculation",
+                "market_risk_var",
+                "capital_adequacy",
+                "stress_testing",
+                "expected_loss"
+            ],
+            "tech_debt": "Stress testing modely neodpovídají požadavkům Basel IV",
+            "tech_debt_severity": "high"
+        },
+        {
+            "id": "APP019",
+            "name": "eSignature",
+            "type": "satellite",
+            "domain": "document_management",
+            "description": "Elektronický podpis smluv a dokumentů (kvalifikovaný i prostý)",
+            "criticality": "business_operational",
+            "lifecycle_status": "production",
+            "go_live_date": "2023-01-20",
+            "planned_decommission_date": null,
+            "capabilities": [
+                "qualified_signature",
+                "simple_signature",
+                "signature_verification",
+                "timestamping",
+                "audit_log"
+            ],
+            "tech_debt": null,
+            "tech_debt_severity": null
+        },
+        {
+            "id": "APP020",
+            "name": "APIGateway",
+            "type": "core",
+            "domain": "integration",
+            "description": "Centrální API gateway pro interní i externí integrační provoz",
+            "criticality": "mission_critical",
+            "lifecycle_status": "production",
+            "go_live_date": "2021-06-01",
+            "planned_decommission_date": null,
+            "capabilities": [
+                "api_routing",
+                "rate_limiting",
+                "authentication",
+                "api_versioning",
+                "traffic_monitoring",
+                "open_banking_psd2"
+            ],
+            "tech_debt": null,
+            "tech_debt_severity": null
+        },
+        {
+            "id": "APP021",
+            "name": "InvestOnline",
+            "type": "satellite",
+            "domain": "wealth_management",
+            "description": "Online platforma pro investice – podílové fondy, dluhopisy, akcie",
+            "criticality": "business_critical",
+            "lifecycle_status": "production",
+            "go_live_date": "2022-09-10",
+            "planned_decommission_date": null,
+            "capabilities": [
+                "fund_trading",
+                "portfolio_overview",
+                "market_data",
+                "order_management",
+                "mifid_suitability"
+            ],
+            "tech_debt": null,
+            "tech_debt_severity": null
+        },
+        {
+            "id": "APP022",
+            "name": "InsuranceConnect",
+            "type": "satellite",
+            "domain": "bancassurance",
+            "description": "Distribuce pojistných produktů přes bankovní kanály",
+            "criticality": "business_operational",
+            "lifecycle_status": "production",
+            "go_live_date": "2021-03-15",
+            "planned_decommission_date": null,
+            "capabilities": [
+                "product_comparison",
+                "policy_origination",
+                "claims_forwarding",
+                "commission_tracking"
+            ],
+            "tech_debt": "Integrace s pojišťovnou běží přes flat file, potřeba přejít na API",
+            "tech_debt_severity": "medium"
+        },
+        {
+            "id": "APP023",
+            "name": "HRPortal",
+            "type": "satellite",
+            "domain": "internal_operations",
+            "description": "Interní HR systém – docházka, mzdy, hodnocení zaměstnanců",
+            "criticality": "business_operational",
+            "lifecycle_status": "production",
+            "go_live_date": "2019-01-10",
+            "planned_decommission_date": null,
+            "capabilities": [
+                "payroll",
+                "attendance_tracking",
+                "performance_reviews",
+                "employee_onboarding",
+                "leave_management"
+            ],
+            "tech_debt": null,
+            "tech_debt_severity": null
+        },
+        {
+            "id": "APP024",
+            "name": "ServiceDesk ITSM",
+            "type": "satellite",
+            "domain": "internal_operations",
+            "description": "IT Service Management – incidenty, změny, problémy",
+            "criticality": "business_operational",
+            "lifecycle_status": "production",
+            "go_live_date": "2020-05-01",
+            "planned_decommission_date": null,
+            "capabilities": [
+                "incident_management",
+                "change_management",
+                "problem_management",
+                "asset_management",
+                "sla_monitoring"
+            ],
+            "tech_debt": null,
+            "tech_debt_severity": null
+        },
+        {
+            "id": "APP025",
+            "name": "ATM Manager",
+            "type": "satellite",
+            "domain": "card_processing",
+            "description": "Správa a monitoring sítě bankomatů",
+            "criticality": "business_critical",
+            "lifecycle_status": "production",
+            "go_live_date": "2018-06-20",
+            "planned_decommission_date": null,
+            "capabilities": [
+                "atm_monitoring",
+                "cash_forecasting",
+                "fault_management",
+                "software_distribution",
+                "transaction_reconciliation"
+            ],
+            "tech_debt": "Monitorovací agent běží na Windows XP embedded, nutný upgrade",
+            "tech_debt_severity": "critical"
+        },
+        {
+            "id": "APP026",
+            "name": "MortgageCalc",
+            "type": "satellite",
+            "domain": "lending",
+            "description": "Kalkulátor a simulátor hypotečních produktů pro poradce i klienty",
+            "criticality": "business_operational",
+            "lifecycle_status": "production",
+            "go_live_date": "2023-05-01",
+            "planned_decommission_date": null,
+            "capabilities": [
+                "mortgage_simulation",
+                "affordability_check",
+                "rate_comparison",
+                "amortization_schedule"
+            ],
+            "tech_debt": null,
+            "tech_debt_severity": null
+        },
+        {
+            "id": "APP027",
+            "name": "DataQuality",
+            "type": "satellite",
+            "domain": "data_analytics",
+            "description": "Monitoring a řízení kvality dat napříč bankou",
+            "criticality": "business_operational",
+            "lifecycle_status": "production",
+            "go_live_date": "2023-09-15",
+            "planned_decommission_date": null,
+            "capabilities": [
+                "data_profiling",
+                "rule_validation",
+                "anomaly_detection",
+                "lineage_tracking",
+                "quality_dashboards"
+            ],
+            "tech_debt": null,
+            "tech_debt_severity": null
+        },
+        {
+            "id": "APP028",
+            "name": "LegacyFX",
+            "type": "core",
+            "domain": "treasury",
+            "description": "Starý FX trading systém – postupně nahrazován TreasuryDesk",
+            "criticality": "business_operational",
+            "lifecycle_status": "phase_out",
+            "go_live_date": "2010-04-01",
+            "planned_decommission_date": "2026-09-30",
+            "capabilities": [
+                "fx_spot",
+                "fx_forward",
+                "fx_swap"
+            ],
+            "tech_debt": "End-of-life systém, žádný vendor support, Delphi klient",
+            "tech_debt_severity": "critical"
+        },
+        {
+            "id": "APP029",
+            "name": "ChatBot Asistent",
+            "type": "satellite",
+            "domain": "digital_channels",
+            "description": "AI chatbot pro zákaznickou podporu v digitálních kanálech",
+            "criticality": "business_operational",
+            "lifecycle_status": "production",
+            "go_live_date": "2024-02-01",
+            "planned_decommission_date": null,
+            "capabilities": [
+                "intent_recognition",
+                "faq_answering",
+                "handoff_to_agent",
+                "sentiment_analysis",
+                "conversation_logging"
+            ],
+            "tech_debt": null,
+            "tech_debt_severity": null
+        },
+        {
+            "id": "APP030",
+            "name": "OpenBanking Hub",
+            "type": "core",
+            "domain": "integration",
+            "description": "PSD2/PSD3 compliant open banking platforma pro TPP přístupy",
+            "criticality": "mission_critical",
+            "lifecycle_status": "production",
+            "go_live_date": "2021-09-14",
+            "planned_decommission_date": null,
+            "capabilities": [
+                "aisp",
+                "pisp",
+                "consent_management",
+                "tpp_registration",
+                "strong_customer_authentication"
+            ],
+            "tech_debt": "Nutná úprava consent flow pro PSD3 draft požadavky",
+            "tech_debt_severity": "medium"
+        }
+    ],
+    "ownerships": [
+        {
+            "id": "OWN001",
+            "application_id": "APP001",
+            "business_owner": "Jan Novák",
+            "business_owner_department": "Retail Banking",
+            "it_owner": "Petr Svoboda",
+            "it_owner_team": "Core Systems",
+            "vendor": "Temenos"
+        },
+        {
+            "id": "OWN002",
+            "application_id": "APP002",
+            "business_owner": "Marie Dvořáková",
+            "business_owner_department": "Payment Services",
+            "it_owner": "Tomáš Horák",
+            "it_owner_team": "Payment Infrastructure",
+            "vendor": null
+        },
+        {
+            "id": "OWN003",
+            "application_id": "APP003",
+            "business_owner": "Karel Procházka",
+            "business_owner_department": "Lending",
+            "it_owner": "Eva Černá",
+            "it_owner_team": "Lending Systems",
+            "vendor": "Finastra"
+        },
+        {
+            "id": "OWN004",
+            "application_id": "APP004",
+            "business_owner": "Lucie Veselá",
+            "business_owner_department": "Risk Management",
+            "it_owner": "Martin Kučera",
+            "it_owner_team": "Security & Fraud",
+            "vendor": "NICE Actimize"
+        },
+        {
+            "id": "OWN005",
+            "application_id": "APP005",
+            "business_owner": "Jiří Marek",
+            "business_owner_department": "Sales & Distribution",
+            "it_owner": "Anna Poláková",
+            "it_owner_team": "CRM & Channels",
+            "vendor": "Salesforce"
+        },
+        {
+            "id": "OWN006",
+            "application_id": "APP006",
+            "business_owner": "Tereza Němcová",
+            "business_owner_department": "Digital Banking",
+            "it_owner": "Jakub Fiala",
+            "it_owner_team": "Mobile & Frontend",
+            "vendor": null
+        },
+        {
+            "id": "OWN007",
+            "application_id": "APP007",
+            "business_owner": "Tereza Němcová",
+            "business_owner_department": "Digital Banking",
+            "it_owner": "Jakub Fiala",
+            "it_owner_team": "Mobile & Frontend",
+            "vendor": null
+        },
+        {
+            "id": "OWN008",
+            "application_id": "APP008",
+            "business_owner": "Hana Králová",
+            "business_owner_department": "Compliance & Legal",
+            "it_owner": "Ondřej Bartoš",
+            "it_owner_team": "Regulatory IT",
+            "vendor": "Wolters Kluwer"
+        },
+        {
+            "id": "OWN009",
+            "application_id": "APP009",
+            "business_owner": "Pavel Šimek",
+            "business_owner_department": "Data & Analytics",
+            "it_owner": "Lenka Tichá",
+            "it_owner_team": "Data Engineering",
+            "vendor": null
+        },
+        {
+            "id": "OWN010",
+            "application_id": "APP010",
+            "business_owner": "Pavel Šimek",
+            "business_owner_department": "Finance & Accounting",
+            "it_owner": "Roman Vlček",
+            "it_owner_team": "Legacy Maintenance",
+            "vendor": "SAP"
+        },
+        {
+            "id": "OWN011",
+            "application_id": "APP011",
+            "business_owner": "Hana Králová",
+            "business_owner_department": "Compliance & Legal",
+            "it_owner": "Ondřej Bartoš",
+            "it_owner_team": "Regulatory IT",
+            "vendor": "OpenText"
+        },
+        {
+            "id": "OWN012",
+            "application_id": "APP012",
+            "business_owner": "Marie Dvořáková",
+            "business_owner_department": "Payment Services",
+            "it_owner": "Tomáš Horák",
+            "it_owner_team": "Payment Infrastructure",
+            "vendor": "FIS Global"
+        },
+        {
+            "id": "OWN013",
+            "application_id": "APP013",
+            "business_owner": "Vladimír Řezáč",
+            "business_owner_department": "Treasury",
+            "it_owner": "Petr Svoboda",
+            "it_owner_team": "Core Systems",
+            "vendor": "Murex"
+        },
+        {
+            "id": "OWN014",
+            "application_id": "APP014",
+            "business_owner": "Hana Králová",
+            "business_owner_department": "Compliance & Legal",
+            "it_owner": "Martin Kučera",
+            "it_owner_team": "Security & Fraud",
+            "vendor": "Refinitiv"
+        },
+        {
+            "id": "OWN015",
+            "application_id": "APP015",
+            "business_owner": "Karel Procházka",
+            "business_owner_department": "Lending",
+            "it_owner": "Eva Černá",
+            "it_owner_team": "Lending Systems",
+            "vendor": null
+        },
+        {
+            "id": "OWN016",
+            "application_id": "APP016",
+            "business_owner": "Tereza Němcová",
+            "business_owner_department": "Digital Banking",
+            "it_owner": "Jakub Fiala",
+            "it_owner_team": "Mobile & Frontend",
+            "vendor": null
+        },
+        {
+            "id": "OWN017",
+            "application_id": "APP017",
+            "business_owner": "Jan Novák",
+            "business_owner_department": "Retail Banking",
+            "it_owner": "Roman Vlček",
+            "it_owner_team": "Legacy Maintenance",
+            "vendor": null
+        },
+        {
+            "id": "OWN018",
+            "application_id": "APP018",
+            "business_owner": "Lucie Veselá",
+            "business_owner_department": "Risk Management",
+            "it_owner": "Martin Kučera",
+            "it_owner_team": "Security & Fraud",
+            "vendor": "Moody's Analytics"
+        },
+        {
+            "id": "OWN019",
+            "application_id": "APP019",
+            "business_owner": "Hana Králová",
+            "business_owner_department": "Compliance & Legal",
+            "it_owner": "Ondřej Bartoš",
+            "it_owner_team": "Regulatory IT",
+            "vendor": "Signi"
+        },
+        {
+            "id": "OWN020",
+            "application_id": "APP020",
+            "business_owner": "Pavel Šimek",
+            "business_owner_department": "IT Architecture",
+            "it_owner": "Tomáš Horák",
+            "it_owner_team": "Payment Infrastructure",
+            "vendor": "Kong"
+        },
+        {
+            "id": "OWN021",
+            "application_id": "APP021",
+            "business_owner": "Michaela Tůmová",
+            "business_owner_department": "Wealth Management",
+            "it_owner": "Jakub Fiala",
+            "it_owner_team": "Mobile & Frontend",
+            "vendor": null
+        },
+        {
+            "id": "OWN022",
+            "application_id": "APP022",
+            "business_owner": "Jiří Marek",
+            "business_owner_department": "Sales & Distribution",
+            "it_owner": "Anna Poláková",
+            "it_owner_team": "CRM & Channels",
+            "vendor": null
+        },
+        {
+            "id": "OWN023",
+            "application_id": "APP023",
+            "business_owner": "Zdeněk Havlík",
+            "business_owner_department": "Human Resources",
+            "it_owner": "Roman Vlček",
+            "it_owner_team": "Legacy Maintenance",
+            "vendor": "Workday"
+        },
+        {
+            "id": "OWN024",
+            "application_id": "APP024",
+            "business_owner": "Pavel Šimek",
+            "business_owner_department": "IT Operations",
+            "it_owner": "Lenka Tichá",
+            "it_owner_team": "Data Engineering",
+            "vendor": "ServiceNow"
+        },
+        {
+            "id": "OWN025",
+            "application_id": "APP025",
+            "business_owner": "Marie Dvořáková",
+            "business_owner_department": "Payment Services",
+            "it_owner": "Tomáš Horák",
+            "it_owner_team": "Payment Infrastructure",
+            "vendor": "NCR"
+        },
+        {
+            "id": "OWN026",
+            "application_id": "APP026",
+            "business_owner": "Karel Procházka",
+            "business_owner_department": "Lending",
+            "it_owner": "Eva Černá",
+            "it_owner_team": "Lending Systems",
+            "vendor": null
+        },
+        {
+            "id": "OWN027",
+            "application_id": "APP027",
+            "business_owner": "Pavel Šimek",
+            "business_owner_department": "Data & Analytics",
+            "it_owner": "Lenka Tichá",
+            "it_owner_team": "Data Engineering",
+            "vendor": "Ataccama"
+        },
+        {
+            "id": "OWN028",
+            "application_id": "APP028",
+            "business_owner": "Vladimír Řezáč",
+            "business_owner_department": "Treasury",
+            "it_owner": "Roman Vlček",
+            "it_owner_team": "Legacy Maintenance",
+            "vendor": "Calypso"
+        },
+        {
+            "id": "OWN029",
+            "application_id": "APP029",
+            "business_owner": "Tereza Němcová",
+            "business_owner_department": "Digital Banking",
+            "it_owner": "Jakub Fiala",
+            "it_owner_team": "Mobile & Frontend",
+            "vendor": null
+        },
+        {
+            "id": "OWN030",
+            "application_id": "APP030",
+            "business_owner": "Pavel Šimek",
+            "business_owner_department": "IT Architecture",
+            "it_owner": "Tomáš Horák",
+            "it_owner_team": "Payment Infrastructure",
+            "vendor": null
+        }
+    ],
+    "environments": [
+        {
+            "id": "ENV001",
+            "application_id": "APP001",
+            "env_type": "DEV",
+            "region": "CZ-Prague",
+            "hosting": "on-prem",
+            "datacenter": "DC-Prague-01"
+        },
+        {
+            "id": "ENV002",
+            "application_id": "APP001",
+            "env_type": "UAT",
+            "region": "CZ-Prague",
+            "hosting": "on-prem",
+            "datacenter": "DC-Prague-01"
+        },
+        {
+            "id": "ENV003",
+            "application_id": "APP001",
+            "env_type": "PROD",
+            "region": "CZ-Prague",
+            "hosting": "on-prem",
+            "datacenter": "DC-Prague-02"
+        },
+        {
+            "id": "ENV004",
+            "application_id": "APP002",
+            "env_type": "DEV",
+            "region": "EU-West",
+            "hosting": "cloud",
+            "datacenter": null
+        },
+        {
+            "id": "ENV005",
+            "application_id": "APP002",
+            "env_type": "UAT",
+            "region": "EU-West",
+            "hosting": "cloud",
+            "datacenter": null
+        },
+        {
+            "id": "ENV006",
+            "application_id": "APP002",
+            "env_type": "PROD",
+            "region": "EU-West",
+            "hosting": "cloud",
+            "datacenter": null
+        },
+        {
+            "id": "ENV007",
+            "application_id": "APP003",
+            "env_type": "DEV",
+            "region": "CZ-Prague",
+            "hosting": "on-prem",
+            "datacenter": "DC-Prague-01"
+        },
+        {
+            "id": "ENV008",
+            "application_id": "APP003",
+            "env_type": "PROD",
+            "region": "CZ-Prague",
+            "hosting": "on-prem",
+            "datacenter": "DC-Prague-02"
+        },
+        {
+            "id": "ENV009",
+            "application_id": "APP004",
+            "env_type": "PROD",
+            "region": "EU-West",
+            "hosting": "cloud",
+            "datacenter": null
+        },
+        {
+            "id": "ENV010",
+            "application_id": "APP005",
+            "env_type": "PROD",
+            "region": "EU-West",
+            "hosting": "cloud",
+            "datacenter": null
+        },
+        {
+            "id": "ENV011",
+            "application_id": "APP006",
+            "env_type": "DEV",
+            "region": "EU-West",
+            "hosting": "cloud",
+            "datacenter": null
+        },
+        {
+            "id": "ENV012",
+            "application_id": "APP006",
+            "env_type": "UAT",
+            "region": "EU-West",
+            "hosting": "cloud",
+            "datacenter": null
+        },
+        {
+            "id": "ENV013",
+            "application_id": "APP006",
+            "env_type": "PROD",
+            "region": "EU-West",
+            "hosting": "cloud",
+            "datacenter": null
+        },
+        {
+            "id": "ENV014",
+            "application_id": "APP007",
+            "env_type": "PROD",
+            "region": "EU-West",
+            "hosting": "cloud",
+            "datacenter": null
+        },
+        {
+            "id": "ENV015",
+            "application_id": "APP008",
+            "env_type": "PROD",
+            "region": "CZ-Prague",
+            "hosting": "on-prem",
+            "datacenter": "DC-Prague-02"
+        },
+        {
+            "id": "ENV016",
+            "application_id": "APP009",
+            "env_type": "PROD",
+            "region": "CZ-Prague",
+            "hosting": "on-prem",
+            "datacenter": "DC-Prague-02"
+        },
+        {
+            "id": "ENV017",
+            "application_id": "APP010",
+            "env_type": "PROD",
+            "region": "CZ-Prague",
+            "hosting": "on-prem",
+            "datacenter": "DC-Prague-01"
+        },
+        {
+            "id": "ENV018",
+            "application_id": "APP011",
+            "env_type": "PROD",
+            "region": "CZ-Prague",
+            "hosting": "on-prem",
+            "datacenter": "DC-Prague-02"
+        },
+        {
+            "id": "ENV019",
+            "application_id": "APP012",
+            "env_type": "PROD",
+            "region": "CZ-Prague",
+            "hosting": "on-prem",
+            "datacenter": "DC-Prague-02"
+        },
+        {
+            "id": "ENV020",
+            "application_id": "APP012",
+            "env_type": "DEV",
+            "region": "CZ-Prague",
+            "hosting": "on-prem",
+            "datacenter": "DC-Prague-01"
+        },
+        {
+            "id": "ENV021",
+            "application_id": "APP013",
+            "env_type": "UAT",
+            "region": "CZ-Prague",
+            "hosting": "on-prem",
+            "datacenter": "DC-Prague-01"
+        },
+        {
+            "id": "ENV022",
+            "application_id": "APP013",
+            "env_type": "PROD",
+            "region": "CZ-Prague",
+            "hosting": "on-prem",
+            "datacenter": "DC-Prague-02"
+        },
+        {
+            "id": "ENV023",
+            "application_id": "APP014",
+            "env_type": "DEV",
+            "region": "EU-West",
+            "hosting": "cloud",
+            "datacenter": null
+        },
+        {
+            "id": "ENV024",
+            "application_id": "APP014",
+            "env_type": "PROD",
+            "region": "EU-West",
+            "hosting": "cloud",
+            "datacenter": null
+        },
+        {
+            "id": "ENV025",
+            "application_id": "APP015",
+            "env_type": "PROD",
+            "region": "CZ-Prague",
+            "hosting": "on-prem",
+            "datacenter": "DC-Prague-02"
+        },
+        {
+            "id": "ENV026",
+            "application_id": "APP016",
+            "env_type": "DEV",
+            "region": "EU-West",
+            "hosting": "cloud",
+            "datacenter": null
+        },
+        {
+            "id": "ENV027",
+            "application_id": "APP016",
+            "env_type": "PROD",
+            "region": "EU-West",
+            "hosting": "cloud",
+            "datacenter": null
+        },
+        {
+            "id": "ENV028",
+            "application_id": "APP017",
+            "env_type": "UAT",
+            "region": "CZ-Prague",
+            "hosting": "on-prem",
+            "datacenter": "DC-Prague-01"
+        },
+        {
+            "id": "ENV029",
+            "application_id": "APP017",
+            "env_type": "PROD",
+            "region": "CZ-Prague",
+            "hosting": "on-prem",
+            "datacenter": "DC-Prague-02"
+        },
+        {
+            "id": "ENV030",
+            "application_id": "APP018",
+            "env_type": "DEV",
+            "region": "CZ-Prague",
+            "hosting": "on-prem",
+            "datacenter": "DC-Prague-01"
+        },
+        {
+            "id": "ENV031",
+            "application_id": "APP018",
+            "env_type": "PROD",
+            "region": "CZ-Prague",
+            "hosting": "on-prem",
+            "datacenter": "DC-Prague-02"
+        },
+        {
+            "id": "ENV032",
+            "application_id": "APP019",
+            "env_type": "PROD",
+            "region": "EU-West",
+            "hosting": "cloud",
+            "datacenter": null
+        },
+        {
+            "id": "ENV033",
+            "application_id": "APP020",
+            "env_type": "DEV",
+            "region": "EU-West",
+            "hosting": "cloud",
+            "datacenter": null
+        },
+        {
+            "id": "ENV034",
+            "application_id": "APP020",
+            "env_type": "UAT",
+            "region": "EU-West",
+            "hosting": "cloud",
+            "datacenter": null
+        },
+        {
+            "id": "ENV035",
+            "application_id": "APP020",
+            "env_type": "PROD",
+            "region": "EU-West",
+            "hosting": "cloud",
+            "datacenter": null
+        },
+        {
+            "id": "ENV036",
+            "application_id": "APP021",
+            "env_type": "DEV",
+            "region": "EU-West",
+            "hosting": "cloud",
+            "datacenter": null
+        },
+        {
+            "id": "ENV037",
+            "application_id": "APP021",
+            "env_type": "PROD",
+            "region": "EU-West",
+            "hosting": "cloud",
+            "datacenter": null
+        },
+        {
+            "id": "ENV038",
+            "application_id": "APP022",
+            "env_type": "PROD",
+            "region": "CZ-Prague",
+            "hosting": "on-prem",
+            "datacenter": "DC-Prague-02"
+        },
+        {
+            "id": "ENV039",
+            "application_id": "APP023",
+            "env_type": "PROD",
+            "region": "EU-West",
+            "hosting": "cloud",
+            "datacenter": null
+        },
+        {
+            "id": "ENV040",
+            "application_id": "APP024",
+            "env_type": "PROD",
+            "region": "EU-West",
+            "hosting": "cloud",
+            "datacenter": null
+        },
+        {
+            "id": "ENV041",
+            "application_id": "APP025",
+            "env_type": "PROD",
+            "region": "CZ-Prague",
+            "hosting": "on-prem",
+            "datacenter": "DC-Prague-02"
+        },
+        {
+            "id": "ENV042",
+            "application_id": "APP026",
+            "env_type": "DEV",
+            "region": "EU-West",
+            "hosting": "cloud",
+            "datacenter": null
+        },
+        {
+            "id": "ENV043",
+            "application_id": "APP026",
+            "env_type": "PROD",
+            "region": "EU-West",
+            "hosting": "cloud",
+            "datacenter": null
+        },
+        {
+            "id": "ENV044",
+            "application_id": "APP027",
+            "env_type": "PROD",
+            "region": "CZ-Prague",
+            "hosting": "on-prem",
+            "datacenter": "DC-Prague-02"
+        },
+        {
+            "id": "ENV045",
+            "application_id": "APP028",
+            "env_type": "PROD",
+            "region": "CZ-Prague",
+            "hosting": "on-prem",
+            "datacenter": "DC-Prague-01"
+        },
+        {
+            "id": "ENV046",
+            "application_id": "APP029",
+            "env_type": "DEV",
+            "region": "EU-West",
+            "hosting": "cloud",
+            "datacenter": null
+        },
+        {
+            "id": "ENV047",
+            "application_id": "APP029",
+            "env_type": "PROD",
+            "region": "EU-West",
+            "hosting": "cloud",
+            "datacenter": null
+        },
+        {
+            "id": "ENV048",
+            "application_id": "APP030",
+            "env_type": "DEV",
+            "region": "EU-West",
+            "hosting": "cloud",
+            "datacenter": null
+        },
+        {
+            "id": "ENV049",
+            "application_id": "APP030",
+            "env_type": "UAT",
+            "region": "EU-West",
+            "hosting": "cloud",
+            "datacenter": null
+        },
+        {
+            "id": "ENV050",
+            "application_id": "APP030",
+            "env_type": "PROD",
+            "region": "EU-West",
+            "hosting": "cloud",
+            "datacenter": null
+        }
+    ],
+    "technologies": [
+        {
+            "id": "TECH001",
+            "application_id": "APP001",
+            "stack": "Java EE / Spring Boot",
+            "database": "Oracle 19c",
+            "runtime": "JBoss EAP 7.4",
+            "vendor_product": "Temenos Transact (T24)"
+        },
+        {
+            "id": "TECH002",
+            "application_id": "APP002",
+            "stack": "Java / Spring Cloud",
+            "database": "PostgreSQL 15",
+            "runtime": "Kubernetes (AKS)",
+            "vendor_product": null
+        },
+        {
+            "id": "TECH003",
+            "application_id": "APP003",
+            "stack": "Java / Angular",
+            "database": "Oracle 19c",
+            "runtime": "Tomcat 9",
+            "vendor_product": "Finastra Fusion Originate"
+        },
+        {
+            "id": "TECH004",
+            "application_id": "APP004",
+            "stack": "Python / Kafka Streams",
+            "database": "Cassandra 4.x",
+            "runtime": "Kubernetes (AKS)",
+            "vendor_product": "NICE Actimize IFM-X"
+        },
+        {
+            "id": "TECH005",
+            "application_id": "APP005",
+            "stack": "Salesforce Platform",
+            "database": "Salesforce (managed)",
+            "runtime": "Salesforce Cloud",
+            "vendor_product": "Salesforce Financial Services Cloud"
+        },
+        {
+            "id": "TECH006",
+            "application_id": "APP006",
+            "stack": "React Native / Node.js",
+            "database": "MongoDB Atlas",
+            "runtime": "Kubernetes (AKS)",
+            "vendor_product": null
+        },
+        {
+            "id": "TECH007",
+            "application_id": "APP007",
+            "stack": "Angular / .NET Core",
+            "database": "MS SQL Server 2019",
+            "runtime": "Kubernetes (AKS)",
+            "vendor_product": null
+        },
+        {
+            "id": "TECH008",
+            "application_id": "APP008",
+            "stack": ".NET Framework / SSRS",
+            "database": "MS SQL Server 2019",
+            "runtime": "IIS 10",
+            "vendor_product": "Wolters Kluwer OneSumX"
+        },
+        {
+            "id": "TECH009",
+            "application_id": "APP009",
+            "stack": "ETL / Spark",
+            "database": "Teradata 17 + Hadoop (HDFS)",
+            "runtime": "Cloudera CDP",
+            "vendor_product": "Informatica PowerCenter"
+        },
+        {
+            "id": "TECH010",
+            "application_id": "APP010",
+            "stack": "ABAP / SAP GUI",
+            "database": "SAP HANA (migrated from Oracle 11g)",
+            "runtime": "SAP NetWeaver 7.5",
+            "vendor_product": "SAP ERP Financials"
+        },
+        {
+            "id": "TECH011",
+            "application_id": "APP011",
+            "stack": "Java / REST API",
+            "database": "PostgreSQL 14",
+            "runtime": "Tomcat 10",
+            "vendor_product": "OpenText Documentum"
+        },
+        {
+            "id": "TECH012",
+            "application_id": "APP012",
+            "stack": "Java / ISO 8583",
+            "database": "Oracle 19c",
+            "runtime": "JBoss EAP 7.4",
+            "vendor_product": "FIS CARD Base"
+        },
+        {
+            "id": "TECH013",
+            "application_id": "APP013",
+            "stack": "Java / Murex MX.3",
+            "database": "Oracle 19c",
+            "runtime": "Murex Runtime",
+            "vendor_product": "Murex MX.3"
+        },
+        {
+            "id": "TECH014",
+            "application_id": "APP014",
+            "stack": "Java / Angular",
+            "database": "PostgreSQL 15",
+            "runtime": "Kubernetes (AKS)",
+            "vendor_product": "Refinitiv World-Check"
+        },
+        {
+            "id": "TECH015",
+            "application_id": "APP015",
+            "stack": "Java / Spring Boot",
+            "database": "PostgreSQL 14",
+            "runtime": "Tomcat 10",
+            "vendor_product": null
+        },
+        {
+            "id": "TECH016",
+            "application_id": "APP016",
+            "stack": "Node.js / Express",
+            "database": "Redis + MongoDB",
+            "runtime": "Kubernetes (AKS)",
+            "vendor_product": null
+        },
+        {
+            "id": "TECH017",
+            "application_id": "APP017",
+            "stack": ".NET Framework / WinForms",
+            "database": "MS SQL Server 2016",
+            "runtime": "Windows Desktop",
+            "vendor_product": null
+        },
+        {
+            "id": "TECH018",
+            "application_id": "APP018",
+            "stack": "Python / SAS",
+            "database": "Oracle 19c",
+            "runtime": "SAS Viya + Linux",
+            "vendor_product": "Moody's RiskAuthority"
+        },
+        {
+            "id": "TECH019",
+            "application_id": "APP019",
+            "stack": "React / Node.js",
+            "database": "PostgreSQL 15",
+            "runtime": "Kubernetes (AKS)",
+            "vendor_product": "Signi eSign Platform"
+        },
+        {
+            "id": "TECH020",
+            "application_id": "APP020",
+            "stack": "Kong Gateway / Lua",
+            "database": "PostgreSQL 15",
+            "runtime": "Kubernetes (AKS)",
+            "vendor_product": "Kong Enterprise"
+        },
+        {
+            "id": "TECH021",
+            "application_id": "APP021",
+            "stack": "React / Java Spring",
+            "database": "PostgreSQL 15",
+            "runtime": "Kubernetes (AKS)",
+            "vendor_product": null
+        },
+        {
+            "id": "TECH022",
+            "application_id": "APP022",
+            "stack": "Java / Spring Boot",
+            "database": "PostgreSQL 14",
+            "runtime": "Tomcat 10",
+            "vendor_product": null
+        },
+        {
+            "id": "TECH023",
+            "application_id": "APP023",
+            "stack": "Workday SaaS",
+            "database": "Workday (managed)",
+            "runtime": "Workday Cloud",
+            "vendor_product": "Workday HCM"
+        },
+        {
+            "id": "TECH024",
+            "application_id": "APP024",
+            "stack": "ServiceNow SaaS",
+            "database": "ServiceNow (managed)",
+            "runtime": "ServiceNow Cloud",
+            "vendor_product": "ServiceNow ITSM"
+        },
+        {
+            "id": "TECH025",
+            "application_id": "APP025",
+            "stack": "Java / SNMP",
+            "database": "MS SQL Server 2019",
+            "runtime": "JBoss EAP 7.4",
+            "vendor_product": "NCR Atleos"
+        },
+        {
+            "id": "TECH026",
+            "application_id": "APP026",
+            "stack": "React / Python FastAPI",
+            "database": "PostgreSQL 15",
+            "runtime": "Kubernetes (AKS)",
+            "vendor_product": null
+        },
+        {
+            "id": "TECH027",
+            "application_id": "APP027",
+            "stack": "Java / Spark",
+            "database": "PostgreSQL 15 + Hadoop",
+            "runtime": "Cloudera CDP",
+            "vendor_product": "Ataccama ONE"
+        },
+        {
+            "id": "TECH028",
+            "application_id": "APP028",
+            "stack": "Delphi / C++",
+            "database": "Sybase ASE 15",
+            "runtime": "Windows Server 2012",
+            "vendor_product": "Calypso (legacy fork)"
+        },
+        {
+            "id": "TECH029",
+            "application_id": "APP029",
+            "stack": "Python / LangChain",
+            "database": "Elasticsearch + Redis",
+            "runtime": "Kubernetes (AKS)",
+            "vendor_product": null
+        },
+        {
+            "id": "TECH030",
+            "application_id": "APP030",
+            "stack": "Java / Spring Cloud",
+            "database": "PostgreSQL 15",
+            "runtime": "Kubernetes (AKS)",
+            "vendor_product": null
+        }
+    ],
+    "integrations": [
+        {
+            "id": "INT001",
+            "source_application_id": "APP006",
+            "target_application_id": "APP001",
+            "integration_type": "API",
+            "protocol": "REST/HTTPS",
+            "direction": "bidirectional",
+            "avg_daily_volume": 1250000,
+            "data_sensitivity": "confidential",
+            "description": "Mobilní banka volá CBS pro zůstatky, transakce, produkty"
+        },
+        {
+            "id": "INT002",
+            "source_application_id": "APP007",
+            "target_application_id": "APP001",
+            "integration_type": "API",
+            "protocol": "REST/HTTPS",
+            "direction": "bidirectional",
+            "avg_daily_volume": 850000,
+            "data_sensitivity": "confidential",
+            "description": "Internet banka volá CBS pro zůstatky a správu účtů"
+        },
+        {
+            "id": "INT003",
+            "source_application_id": "APP001",
+            "target_application_id": "APP002",
+            "integration_type": "message",
+            "protocol": "Kafka",
+            "direction": "source_to_target",
+            "avg_daily_volume": 3200000,
+            "data_sensitivity": "strictly_confidential",
+            "description": "CBS posílá platební příkazy do PayGate ke zpracování"
+        },
+        {
+            "id": "INT004",
+            "source_application_id": "APP002",
+            "target_application_id": "APP004",
+            "integration_type": "message",
+            "protocol": "Kafka",
+            "direction": "source_to_target",
+            "avg_daily_volume": 3200000,
+            "data_sensitivity": "strictly_confidential",
+            "description": "Každá transakce z PayGate jde na real-time fraud screening"
+        },
+        {
+            "id": "INT005",
+            "source_application_id": "APP001",
+            "target_application_id": "APP009",
+            "integration_type": "file",
+            "protocol": "SFTP (batch)",
+            "direction": "source_to_target",
+            "avg_daily_volume": 15,
+            "data_sensitivity": "confidential",
+            "description": "Denní batch exporty dat z CBS do DWH"
+        },
+        {
+            "id": "INT006",
+            "source_application_id": "APP009",
+            "target_application_id": "APP008",
+            "integration_type": "file",
+            "protocol": "SFTP (batch)",
+            "direction": "source_to_target",
+            "avg_daily_volume": 8,
+            "data_sensitivity": "confidential",
+            "description": "DWH poskytuje data pro regulatorní reporty"
+        },
+        {
+            "id": "INT007",
+            "source_application_id": "APP005",
+            "target_application_id": "APP001",
+            "integration_type": "API",
+            "protocol": "REST/HTTPS",
+            "direction": "bidirectional",
+            "avg_daily_volume": 120000,
+            "data_sensitivity": "confidential",
+            "description": "CRM synchronizuje klientská data s CBS"
+        },
+        {
+            "id": "INT008",
+            "source_application_id": "APP003",
+            "target_application_id": "APP001",
+            "integration_type": "API",
+            "protocol": "SOAP/HTTPS",
+            "direction": "bidirectional",
+            "avg_daily_volume": 45000,
+            "data_sensitivity": "strictly_confidential",
+            "description": "LoanOrigin zakládá úvěrové účty v CBS"
+        },
+        {
+            "id": "INT009",
+            "source_application_id": "APP003",
+            "target_application_id": "APP011",
+            "integration_type": "API",
+            "protocol": "REST/HTTPS",
+            "direction": "source_to_target",
+            "avg_daily_volume": 12000,
+            "data_sensitivity": "confidential",
+            "description": "Úvěrové smlouvy a dokumenty se ukládají do DocVault"
+        },
+        {
+            "id": "INT010",
+            "source_application_id": "APP010",
+            "target_application_id": "APP009",
+            "integration_type": "file",
+            "protocol": "SFTP (batch)",
+            "direction": "source_to_target",
+            "avg_daily_volume": 5,
+            "data_sensitivity": "internal",
+            "description": "Legacy účetní data se exportují do DWH"
+        },
+        {
+            "id": "INT011",
+            "source_application_id": "APP002",
+            "target_application_id": "APP012",
+            "integration_type": "API",
+            "protocol": "ISO 8583 / TCP",
+            "direction": "bidirectional",
+            "avg_daily_volume": 2100000,
+            "data_sensitivity": "strictly_confidential",
+            "description": "PayGate směruje karetní autorizace do CardManager"
+        },
+        {
+            "id": "INT012",
+            "source_application_id": "APP012",
+            "target_application_id": "APP004",
+            "integration_type": "message",
+            "protocol": "Kafka",
+            "direction": "source_to_target",
+            "avg_daily_volume": 2100000,
+            "data_sensitivity": "strictly_confidential",
+            "description": "Karetní transakce se streamují do FraudShield"
+        },
+        {
+            "id": "INT013",
+            "source_application_id": "APP008",
+            "target_application_id": null,
+            "integration_type": "file",
+            "protocol": "SFTP (encrypted)",
+            "direction": "source_to_target",
+            "avg_daily_volume": 3,
+            "data_sensitivity": "strictly_confidential",
+            "description": "Regulatorní výkazy odesílány do ČNB a ECB",
+            "external_target": "ČNB / ECB"
+        },
+        {
+            "id": "INT014",
+            "source_application_id": "APP002",
+            "target_application_id": null,
+            "integration_type": "API",
+            "protocol": "ISO 20022 / HTTPS",
+            "direction": "bidirectional",
+            "avg_daily_volume": 450000,
+            "data_sensitivity": "strictly_confidential",
+            "description": "SEPA a SWIFT platby – napojení na platební infrastrukturu",
+            "external_target": "SWIFT / CERTIS / SEPA"
+        },
+        {
+            "id": "INT015",
+            "source_application_id": "APP013",
+            "target_application_id": "APP001",
+            "integration_type": "API",
+            "protocol": "REST/HTTPS",
+            "direction": "bidirectional",
+            "avg_daily_volume": 85000,
+            "data_sensitivity": "strictly_confidential",
+            "description": "Treasury pozice a zůstatky nostro účtů z CBS"
+        },
+        {
+            "id": "INT016",
+            "source_application_id": "APP013",
+            "target_application_id": "APP002",
+            "integration_type": "message",
+            "protocol": "Kafka",
+            "direction": "source_to_target",
+            "avg_daily_volume": 15000,
+            "data_sensitivity": "strictly_confidential",
+            "description": "FX a money market platby z Treasury do PayGate"
+        },
+        {
+            "id": "INT017",
+            "source_application_id": "APP014",
+            "target_application_id": "APP001",
+            "integration_type": "API",
+            "protocol": "REST/HTTPS",
+            "direction": "bidirectional",
+            "avg_daily_volume": 25000,
+            "data_sensitivity": "strictly_confidential",
+            "description": "KYC status klienta synchronizován s CBS"
+        },
+        {
+            "id": "INT018",
+            "source_application_id": "APP014",
+            "target_application_id": "APP005",
+            "integration_type": "API",
+            "protocol": "REST/HTTPS",
+            "direction": "source_to_target",
+            "avg_daily_volume": 18000,
+            "data_sensitivity": "confidential",
+            "description": "KYC výsledky přenášeny do CRM pro obchodní využití"
+        },
+        {
+            "id": "INT019",
+            "source_application_id": "APP015",
+            "target_application_id": "APP003",
+            "integration_type": "API",
+            "protocol": "REST/HTTPS",
+            "direction": "bidirectional",
+            "avg_daily_volume": 8000,
+            "data_sensitivity": "confidential",
+            "description": "Zajištění úvěrů – sdílení dat s LoanOrigin"
+        },
+        {
+            "id": "INT020",
+            "source_application_id": "APP006",
+            "target_application_id": "APP016",
+            "integration_type": "message",
+            "protocol": "Kafka",
+            "direction": "source_to_target",
+            "avg_daily_volume": 950000,
+            "data_sensitivity": "confidential",
+            "description": "MobileBanka triggeruje notifikace přes NotificationHub"
+        },
+        {
+            "id": "INT021",
+            "source_application_id": "APP007",
+            "target_application_id": "APP016",
+            "integration_type": "message",
+            "protocol": "Kafka",
+            "direction": "source_to_target",
+            "avg_daily_volume": 320000,
+            "data_sensitivity": "confidential",
+            "description": "InternetBanka posílá emaily a alertы přes NotificationHub"
+        },
+        {
+            "id": "INT022",
+            "source_application_id": "APP004",
+            "target_application_id": "APP016",
+            "integration_type": "message",
+            "protocol": "Kafka",
+            "direction": "source_to_target",
+            "avg_daily_volume": 5000,
+            "data_sensitivity": "strictly_confidential",
+            "description": "FraudShield triggeruje urgentní fraud alerty klientům"
+        },
+        {
+            "id": "INT023",
+            "source_application_id": "APP017",
+            "target_application_id": "APP001",
+            "integration_type": "API",
+            "protocol": "SOAP/HTTPS",
+            "direction": "bidirectional",
+            "avg_daily_volume": 180000,
+            "data_sensitivity": "strictly_confidential",
+            "description": "Pokladní operace na pobočkách – účetní zápisy v CBS"
+        },
+        {
+            "id": "INT024",
+            "source_application_id": "APP017",
+            "target_application_id": "APP012",
+            "integration_type": "API",
+            "protocol": "ISO 8583 / TCP",
+            "direction": "bidirectional",
+            "avg_daily_volume": 45000,
+            "data_sensitivity": "strictly_confidential",
+            "description": "Výběry a vklady přes kartu na pobočce"
+        },
+        {
+            "id": "INT025",
+            "source_application_id": "APP009",
+            "target_application_id": "APP018",
+            "integration_type": "file",
+            "protocol": "SFTP (batch)",
+            "direction": "source_to_target",
+            "avg_daily_volume": 12,
+            "data_sensitivity": "confidential",
+            "description": "DWH dodává data pro rizikové výpočty"
+        },
+        {
+            "id": "INT026",
+            "source_application_id": "APP018",
+            "target_application_id": "APP008",
+            "integration_type": "file",
+            "protocol": "SFTP (batch)",
+            "direction": "source_to_target",
+            "avg_daily_volume": 6,
+            "data_sensitivity": "confidential",
+            "description": "Rizikové výstupy pro regulatorní reporting"
+        },
+        {
+            "id": "INT027",
+            "source_application_id": "APP011",
+            "target_application_id": "APP019",
+            "integration_type": "API",
+            "protocol": "REST/HTTPS",
+            "direction": "bidirectional",
+            "avg_daily_volume": 8000,
+            "data_sensitivity": "confidential",
+            "description": "DocVault odesílá dokumenty k podpisu do eSignature"
+        },
+        {
+            "id": "INT028",
+            "source_application_id": "APP020",
+            "target_application_id": "APP001",
+            "integration_type": "API",
+            "protocol": "REST/HTTPS",
+            "direction": "bidirectional",
+            "avg_daily_volume": 5500000,
+            "data_sensitivity": "strictly_confidential",
+            "description": "API Gateway routuje veškerý provoz do CBS"
+        },
+        {
+            "id": "INT029",
+            "source_application_id": "APP030",
+            "target_application_id": "APP020",
+            "integration_type": "API",
+            "protocol": "REST/HTTPS",
+            "direction": "bidirectional",
+            "avg_daily_volume": 320000,
+            "data_sensitivity": "strictly_confidential",
+            "description": "Open Banking požadavky routovány přes API Gateway"
+        },
+        {
+            "id": "INT030",
+            "source_application_id": "APP021",
+            "target_application_id": "APP001",
+            "integration_type": "API",
+            "protocol": "REST/HTTPS",
+            "direction": "bidirectional",
+            "avg_daily_volume": 35000,
+            "data_sensitivity": "strictly_confidential",
+            "description": "InvestOnline – klientské účty a zůstatky z CBS"
+        },
+        {
+            "id": "INT031",
+            "source_application_id": "APP021",
+            "target_application_id": null,
+            "integration_type": "API",
+            "protocol": "FIX 4.4 / HTTPS",
+            "direction": "bidirectional",
+            "avg_daily_volume": 12000,
+            "data_sensitivity": "strictly_confidential",
+            "description": "Napojení na burzu (PSE) a market data providery",
+            "external_target": "PSE / Bloomberg"
+        },
+        {
+            "id": "INT032",
+            "source_application_id": "APP022",
+            "target_application_id": null,
+            "integration_type": "file",
+            "protocol": "SFTP (batch)",
+            "direction": "bidirectional",
+            "avg_daily_volume": 4,
+            "data_sensitivity": "confidential",
+            "description": "Výměna pojistných dat s partnerskou pojišťovnou",
+            "external_target": "Partner pojišťovna"
+        },
+        {
+            "id": "INT033",
+            "source_application_id": "APP022",
+            "target_application_id": "APP005",
+            "integration_type": "API",
+            "protocol": "REST/HTTPS",
+            "direction": "bidirectional",
+            "avg_daily_volume": 15000,
+            "data_sensitivity": "confidential",
+            "description": "Pojistné produkty klientů synchronizovány do CRM"
+        },
+        {
+            "id": "INT034",
+            "source_application_id": "APP025",
+            "target_application_id": "APP012",
+            "integration_type": "API",
+            "protocol": "ISO 8583 / TCP",
+            "direction": "bidirectional",
+            "avg_daily_volume": 520000,
+            "data_sensitivity": "strictly_confidential",
+            "description": "ATM transakce autorizovány přes CardManager"
+        },
+        {
+            "id": "INT035",
+            "source_application_id": "APP026",
+            "target_application_id": "APP003",
+            "integration_type": "API",
+            "protocol": "REST/HTTPS",
+            "direction": "source_to_target",
+            "avg_daily_volume": 6000,
+            "data_sensitivity": "confidential",
+            "description": "Předání simulace do LoanOrigin pro zahájení origination"
+        },
+        {
+            "id": "INT036",
+            "source_application_id": "APP027",
+            "target_application_id": "APP009",
+            "integration_type": "API",
+            "protocol": "REST/HTTPS",
+            "direction": "bidirectional",
+            "avg_daily_volume": 50000,
+            "data_sensitivity": "internal",
+            "description": "DataQuality monitoruje a validuje data v DWH"
+        },
+        {
+            "id": "INT037",
+            "source_application_id": "APP028",
+            "target_application_id": "APP013",
+            "integration_type": "file",
+            "protocol": "SFTP (batch)",
+            "direction": "source_to_target",
+            "avg_daily_volume": 3,
+            "data_sensitivity": "strictly_confidential",
+            "description": "Zbývající FX obchody migrovány do TreasuryDesk"
+        },
+        {
+            "id": "INT038",
+            "source_application_id": "APP029",
+            "target_application_id": "APP006",
+            "integration_type": "API",
+            "protocol": "REST/HTTPS",
+            "direction": "bidirectional",
+            "avg_daily_volume": 75000,
+            "data_sensitivity": "confidential",
+            "description": "ChatBot integrován v mobilní bance"
+        },
+        {
+            "id": "INT039",
+            "source_application_id": "APP029",
+            "target_application_id": "APP007",
+            "integration_type": "API",
+            "protocol": "REST/HTTPS",
+            "direction": "bidirectional",
+            "avg_daily_volume": 42000,
+            "data_sensitivity": "confidential",
+            "description": "ChatBot integrován v internet bance"
+        },
+        {
+            "id": "INT040",
+            "source_application_id": "APP030",
+            "target_application_id": null,
+            "integration_type": "API",
+            "protocol": "REST/HTTPS (PSD2)",
+            "direction": "bidirectional",
+            "avg_daily_volume": 280000,
+            "data_sensitivity": "strictly_confidential",
+            "description": "Příchozí TPP požadavky (AISP/PISP) od třetích stran",
+            "external_target": "Third Party Providers (TPP)"
+        }
+    ]
+}

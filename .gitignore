@@ -33,11 +33,13 @@ yarn-error.log*
 
 # Testing
 coverage/
+resources_tst/
 
 # Misc
 *.log
 *.tmp
 *.bak
 *.pyc
+*.sql
 
 db.sqlite3
