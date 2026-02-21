@@ -380,8 +380,8 @@
             "domain": "document_management",
             "description": "Elektronický podpis smluv a dokumentů (kvalifikovaný i prostý)",
             "criticality": "business_operational",
-            "lifecycle_status": "production",
-            "go_live_date": "2023-01-20",
+            "lifecycle_status": "development",
+            "go_live_date": "2026-06-01",
             "planned_decommission_date": null,
             "capabilities": [
                 "qualified_signature",
