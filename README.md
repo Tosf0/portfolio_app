@@ -1,3 +1,3 @@
 # Portfolio App
 
-WIP
+Basic web application for displaying portfolio data utilising Django framework.

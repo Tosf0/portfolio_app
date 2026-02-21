@@ -1,0 +1,133 @@
+﻿{% extends "dashboard/base.html" %}
+
+{% block nav_dashboard %}navbar__link--active{% endblock %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-header__title">Application Portfolio Dashboard</h1>
+    <p class="page-header__subtitle">Overview of {{ total_apps }} applications across the organization</p>
+</div>
+
+<div class="kpi-grid">
+    <div class="kpi-card kpi-card--yellow">
+        <div class="kpi-card__label">Total Applications</div>
+        <div class="kpi-card__value">{{ total_apps }}</div>
+        <div class="kpi-card__detail">{{ core_count }} core &middot; {{ satellite_count }} satellite</div>
+    </div>
+    <div class="kpi-card kpi-card--green">
+        <div class="kpi-card__label">In Production</div>
+        <div class="kpi-card__value">{{ production_count }}</div>
+        <div class="kpi-card__detail">{{ production_pct }}% of portfolio</div>
+    </div>
+    <div class="kpi-card kpi-card--amber">
+        <div class="kpi-card__label">Tech Debt Items</div>
+        <div class="kpi-card__value">{{ tech_debt_count }}</div>
+        <div class="kpi-card__detail">{{ tech_debt_critical }} critical &middot; {{ tech_debt_high }} high</div>
+    </div>
+    <div class="kpi-card kpi-card--red">
+        <div class="kpi-card__label">Mission Critical</div>
+        <div class="kpi-card__value">{{ mission_critical_count }}</div>
+        <div class="kpi-card__detail">{{ mission_critical_pct }}% of portfolio</div>
+    </div>
+    <div class="kpi-card kpi-card--purple">
+        <div class="kpi-card__label">Integrations</div>
+        <div class="kpi-card__value">{{ total_integrations }}</div>
+        <div class="kpi-card__detail">{{ api_integrations }} API &middot; {{ msg_integrations }} message &middot; {{ file_integrations }} file</div>
+    </div>
+</div>
+
+<div class="section-grid">
+    <div class="panel">
+        <div class="panel__header">
+            <h2 class="panel__title">Criticality Breakdown</h2>
+        </div>
+        <div class="bar-chart">
+            {% for item in criticality_data %}
+            <div class="bar-chart__row">
+                <span class="bar-chart__label">{{ item.label }}</span>
+                <div class="bar-chart__track">
+                    <div class="bar-chart__fill bar-chart__fill--{{ item.color }}" style="width: {{ item.pct }}%">{{ item.count }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="panel">
+        <div class="panel__header">
+            <h2 class="panel__title">Lifecycle Status</h2>
+        </div>
+        <div class="bar-chart">
+            {% for item in lifecycle_data %}
+            <div class="bar-chart__row">
+                <span class="bar-chart__label">{{ item.label }}</span>
+                <div class="bar-chart__track">
+                    <div class="bar-chart__fill bar-chart__fill--{{ item.color }}" style="width: {{ item.pct }}%">{{ item.count }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="panel">
+        <div class="panel__header">
+            <h2 class="panel__title">Domain Distribution</h2>
+        </div>
+        <div class="bar-chart">
+            {% for item in domain_data %}
+            <div class="bar-chart__row">
+                <span class="bar-chart__label">{{ item.domain }}</span>
+                <div class="bar-chart__track">
+                    <div class="bar-chart__fill bar-chart__fill--yellow" style="width: {{ item.pct }}%">{{ item.count }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="panel">
+        <div class="panel__header">
+            <h2 class="panel__title">Hosting Distribution</h2>
+        </div>
+        <div class="split-bar">
+            <div class="split-bar__segment split-bar__segment--cloud" style="width: {{ cloud_pct }}%"></div>
+            <div class="split-bar__segment split-bar__segment--onprem" style="width: {{ onprem_pct }}%"></div>
+        </div>
+        <div class="split-bar__legend">
+            <span><span class="split-bar__legend-dot split-bar__legend-dot--cloud"></span>Cloud {{ cloud_count }} ({{ cloud_pct }}%)</span>
+            <span><span class="split-bar__legend-dot split-bar__legend-dot--onprem"></span>On-Premise {{ onprem_count }} ({{ onprem_pct }}%)</span>
+        </div>
+        <div class="panel__subsection">
+            <div class="panel__header panel__header--compact">
+                <h2 class="panel__title">Application Types</h2>
+            </div>
+            <div class="split-bar">
+                <div class="split-bar__segment split-bar__segment--type-core" style="width: {{ core_pct }}%"></div>
+                <div class="split-bar__segment split-bar__segment--type-satellite" style="width: {{ satellite_pct }}%"></div>
+            </div>
+            <div class="split-bar__legend">
+                <span><span class="split-bar__legend-dot split-bar__legend-dot--type-core"></span>Core {{ core_count }} ({{ core_pct }}%)</span>
+                <span><span class="split-bar__legend-dot split-bar__legend-dot--type-satellite"></span>Satellite {{ satellite_count }} ({{ satellite_pct }}%)</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if tech_debt_apps %}
+<div class="panel panel--spaced">
+    <div class="panel__header">
+        <h2 class="panel__title">Tech Debt Overview</h2>
+    </div>
+    <ul class="debt-list">
+        {% for app in tech_debt_apps %}
+        <li class="debt-list__item">
+            <span class="debt-list__severity debt-list__severity--{{ app.tech_debt_severity }}"></span>
+            <div>
+                <div class="debt-list__app">{{ app.name }} <span class="badge debt-list__badge">{{ app.tech_debt_severity }}</span></div>
+                <div class="debt-list__desc">{{ app.tech_debt }}</div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+{% endblock %}
