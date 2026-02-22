@@ -22,4 +22,5 @@ urlpatterns = [
     path('', include('apps.dashboard.urls')),
     path('applications/', include('apps.applications.urls')),
     path('ai-analysis/', include('apps.ai_analysis.urls')),
+    path('chat/', include('apps.ai_chat.urls')),
 ]

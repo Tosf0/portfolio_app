@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'apps.app_catalog',
     'apps.applications',
     'apps.ai_analysis',
+    'apps.ai_chat',
 ]
 
 MIDDLEWARE = [
