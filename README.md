@@ -1,6 +1,6 @@
 # Portfolio App
 
-Basic web application for displaying aplications in a portfolio and their integrations utilising Django framework. It also features an AI assistant that can answer questions about the applications, create analysis and generate mermaid diagrams for them.
+Basic web application for displaying applications in a portfolio and their integrations utilising Django framework. It also features an AI assistant that can answer questions about the applications, create analysis and generate Mermaid diagrams for them.
 
 ## Setup
 
