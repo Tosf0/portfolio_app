@@ -217,4 +217,69 @@
 </div>
 {% endif %}
 
+<!-- Mermaid Diagram -->
+<div class="panel panel--spaced">
+    <div class="panel__header">
+        <h2 class="panel__title">Integration Diagram</h2>
+        <button type="button" class="analysis-btn" id="mermaid-btn" onclick="generateDiagram()">
+            <span class="analysis-btn__icon" id="mermaid-icon">&#9654;</span>
+            <span id="mermaid-text">Generate Diagram</span>
+        </button>
+    </div>
+    <div id="mermaid-error" class="analysis-error" style="display:none;">
+        <p class="analysis-error__text" id="mermaid-error-text"></p>
+    </div>
+    <div id="mermaid-output" class="mermaid-container" style="display:none;"></div>
+</div>
+
 {% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<script>
+mermaid.initialize({ startOnLoad: false, theme: 'neutral' });
+
+function generateDiagram() {
+    const btn = document.getElementById('mermaid-btn');
+    const icon = document.getElementById('mermaid-icon');
+    const text = document.getElementById('mermaid-text');
+    const output = document.getElementById('mermaid-output');
+    const errorPanel = document.getElementById('mermaid-error');
+
+    btn.disabled = true;
+    icon.innerHTML = '&#9203;';
+    text.textContent = 'Generating...';
+    errorPanel.style.display = 'none';
+    output.style.display = 'block';
+    output.innerHTML = '<span class="analysis-loading">Generating diagram via LLM...</span>';
+
+    fetch('{% url "applications:mermaid" app.pk %}', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.error) {
+            errorPanel.style.display = 'block';
+            document.getElementById('mermaid-error-text').textContent = data.error;
+            output.style.display = 'none';
+        } else {
+            output.innerHTML = '<pre class="mermaid">' + data.mermaid_code + '</pre>';
+            mermaid.run({ nodes: output.querySelectorAll('.mermaid') });
+        }
+        btn.disabled = false;
+        icon.innerHTML = '&#9654;';
+        text.textContent = 'Generate Diagram';
+    })
+    .catch(err => {
+        errorPanel.style.display = 'block';
+        document.getElementById('mermaid-error-text').textContent = 'Network error: ' + err.message;
+        output.style.display = 'none';
+        btn.disabled = false;
+        icon.innerHTML = '&#9654;';
+        text.textContent = 'Generate Diagram';
+    });
+}
+</script>
+{% endblock %}
+

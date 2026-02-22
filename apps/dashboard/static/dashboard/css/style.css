@@ -969,6 +969,17 @@ a:hover {
     color: var(--text-muted);
 }
 
+/* ── Mermaid ── */
+
+.mermaid-container {
+    padding: 1.5rem;
+    text-align: center;
+    overflow-x: auto;
+    background: var(--bg-primary);
+    border-radius: var(--radius-sm);
+    min-height: 120px;
+}
+
 /* ── Footer ── */
 
 .footer {

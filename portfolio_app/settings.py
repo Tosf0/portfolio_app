@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'apps.applications',
     'apps.ai_analysis',
     'apps.ai_chat',
+    'apps.mermaid_gen',
 ]
 
 MIDDLEWARE = [
