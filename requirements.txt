@@ -1,0 +1,4 @@
+Django==6.0.2
+python-dotenv==1.2.1
+openai==2.21.0
+anthropic==0.83.0
