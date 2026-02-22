@@ -1,0 +1,155 @@
+﻿{% extends "dashboard/base.html" %}
+
+{% block nav_ai_analysis %}navbar__link--active{% endblock %}
+{% block title %}AI Analysis{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-header__title">AI Portfolio Analysis</h1>
+    <p class="page-header__subtitle">LLM-powered analysis of the application portfolio</p>
+</div>
+
+<div class="analysis-layout">
+    <!-- Prompt & Controls -->
+    <div class="panel">
+        <div class="panel__header">
+            <h2 class="panel__title">Analysis Prompt</h2>
+            <span class="badge analysis-provider">Provider: {{ provider }}</span>
+        </div>
+        <div class="analysis-prompt">
+            <pre class="analysis-prompt__text">{{ prompt }}</pre>
+        </div>
+        <div class="analysis-form">
+            <button type="button" class="analysis-btn" id="run-analysis-btn" onclick="startAnalysis()">
+                <span class="analysis-btn__icon" id="btn-icon">&#9654;</span>
+                <span id="btn-text">Run Analysis</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Error -->
+    <div class="panel analysis-error" id="error-panel" style="display:none;">
+        <div class="panel__header">
+            <h2 class="panel__title">Error</h2>
+        </div>
+        <p class="analysis-error__text" id="error-text"></p>
+    </div>
+
+    <!-- Result -->
+    <div class="panel" id="result-panel" style="display:none;">
+        <div class="panel__header">
+            <h2 class="panel__title">Analysis Result</h2>
+            <span class="badge analysis-provider" id="result-provider"></span>
+        </div>
+        <div class="analysis-result" id="result-content"></div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function startAnalysis() {
+    const btn = document.getElementById('run-analysis-btn');
+    const btnIcon = document.getElementById('btn-icon');
+    const btnText = document.getElementById('btn-text');
+    const errorPanel = document.getElementById('error-panel');
+    const resultPanel = document.getElementById('result-panel');
+    const resultContent = document.getElementById('result-content');
+    const resultProvider = document.getElementById('result-provider');
+
+    // Reset UI
+    errorPanel.style.display = 'none';
+    resultPanel.style.display = 'block';
+    resultContent.innerHTML = '<span class="analysis-loading">Analyzing portfolio...</span>';
+    resultProvider.textContent = '';
+    btn.disabled = true;
+    btnIcon.innerHTML = '&#9203;';
+    btnText.textContent = 'Analyzing...';
+
+    // SSE via fetch (POST not supported by EventSource, so we use fetch)
+    fetch('{% url "ai_analysis:stream" %}', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+    }).then(response => {
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+        let isFirstChunk = true;
+        resultContent.innerHTML = '';
+
+        function read() {
+            reader.read().then(({done, value}) => {
+                if (done) {
+                    btn.disabled = false;
+                    btnIcon.innerHTML = '&#9654;';
+                    btnText.textContent = 'Run Analysis';
+                    return;
+                }
+
+                buffer += decoder.decode(value, {stream: true});
+                const lines = buffer.split('\n');
+                buffer = lines.pop();
+
+                for (const line of lines) {
+                    if (!line.startsWith('data: ')) continue;
+                    try {
+                        const data = JSON.parse(line.slice(6));
+
+                        if (data.error) {
+                            errorPanel.style.display = 'block';
+                            document.getElementById('error-text').textContent = data.error;
+                            resultPanel.style.display = 'none';
+                            btn.disabled = false;
+                            btnIcon.innerHTML = '&#9654;';
+                            btnText.textContent = 'Run Analysis';
+                            return;
+                        }
+
+                        if (data.done) {
+                            btn.disabled = false;
+                            btnIcon.innerHTML = '&#9654;';
+                            btnText.textContent = 'Run Analysis';
+                            return;
+                        }
+
+                        if (data.text) {
+                            // First chunk is metadata JSON
+                            if (isFirstChunk) {
+                                try {
+                                    const meta = JSON.parse(data.text);
+                                    if (meta.provider_label) {
+                                        resultProvider.textContent = meta.provider_label;
+                                        isFirstChunk = false;
+                                        continue;
+                                    }
+                                } catch(e) {}
+                                isFirstChunk = false;
+                            }
+                            // Append text, converting newlines to <br>
+                            const escaped = data.text
+                                .replace(/&/g, '&amp;')
+                                .replace(/</g, '&lt;')
+                                .replace(/>/g, '&gt;')
+                                .replace(/\n/g, '<br>');
+                            resultContent.innerHTML += escaped;
+                        }
+                    } catch(e) {}
+                }
+
+                read();
+            });
+        }
+
+        read();
+    }).catch(err => {
+        errorPanel.style.display = 'block';
+        document.getElementById('error-text').textContent = 'Network error: ' + err.message;
+        resultPanel.style.display = 'none';
+        btn.disabled = false;
+        btnIcon.innerHTML = '&#9654;';
+        btnText.textContent = 'Run Analysis';
+    });
+}
+</script>
+{% endblock %}

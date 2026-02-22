@@ -11,9 +11,14 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Load environment variables from .env
+load_dotenv(BASE_DIR / '.env')
 
 
 # Quick-start development settings - unsuitable for production
@@ -40,6 +45,7 @@ INSTALLED_APPS = [
     'apps.dashboard',
     'apps.app_catalog',
     'apps.applications',
+    'apps.ai_analysis',
 ]
 
 MIDDLEWARE = [
@@ -118,3 +124,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+# ── AI Analysis Configuration ──
+AI_PROVIDER = os.getenv('AI_PROVIDER', 'openai')  # "openai" or "anthropic"
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY', '')
+OPENAI_MODEL = os.getenv('OPENAI_MODEL', 'gpt-4o-mini')
+ANTHROPIC_API_KEY = os.getenv('ANTHROPIC_API_KEY', '')
+ANTHROPIC_MODEL = os.getenv('ANTHROPIC_MODEL', 'claude-sonnet-4-20250514')
